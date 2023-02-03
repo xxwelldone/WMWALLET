@@ -10,13 +10,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.graphicsLayer
 
 
 
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -32,12 +35,13 @@ import kotlin.math.absoluteValue
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun WMCardGroup() {
-    HorizontalPager(count = 3, contentPadding= PaddingValues(20.dp)) { page ->
+    HorizontalPager(count = 3, contentPadding= PaddingValues(40.dp),
+    modifier = Modifier.height(250.dp)) { page ->
         val pageOffSet = calculateCurrentOffsetForPage(page).absoluteValue
         Card(
             contentColor = Color.White,
             modifier = Modifier
-                .padding(10.dp)
+//                .padding(10.dp)
                 .graphicsLayer {
                     lerp(start = 0.90f, stop = 1f, fraction = 1f - pageOffSet.coerceIn(0f, 1f))
                         .also{ scale ->
@@ -62,6 +66,7 @@ fun WMCardGroup_Preview() {
 
 @Composable
 fun WMCardContent() {
+    val shadow = Shadow(Color.Black, offset = Offset(2f, 2f), blurRadius = 1f)
     Column(
         modifier = Modifier
             .background(
@@ -81,7 +86,7 @@ fun WMCardContent() {
         ) {
             Column() {
                 Text(text = "Limite", color = Color.White, fontSize = 11.sp)
-                Text(text = "R$18,24", color = Color.White, fontSize = 28.sp)
+                Text(text = "R$18,24", color = Color.White, fontSize = 20.sp, style = TextStyle(shadow = shadow))
 
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -97,11 +102,11 @@ fun WMCardContent() {
 
         Row {
             MutableList(3) {
-                Text(text = "****", color = Color.White, fontSize = 20.sp)
+                Text(text = "****", color = Color.White, fontSize = 20.sp, style = TextStyle(shadow = shadow))
                 Spacer(modifier = Modifier.weight(1f))
             }
 
-            Text(text = "6969", color = Color.White, fontSize = 20.sp)
+            Text(text = "6969", color = Color.White, fontSize = 20.sp, style = TextStyle(shadow = shadow))
 
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -109,12 +114,12 @@ fun WMCardContent() {
         Row {
             Column() {
                 Text(text = "NOME:", color = Color.White, fontSize = 11.sp)
-                Text(text = "Brenda Milk", color = Color.White, fontSize = 24.sp)
+                Text(text = "Brenda Milk", color = Color.White, fontSize = 20.sp, style = TextStyle(shadow = shadow))
             }
             Spacer(modifier = Modifier.weight(1f))
             Column() {
                 Text(text = "Validade:", color = Color.White, fontSize = 11.sp)
-                Text(text = "11/24", color = Color.White, fontSize = 24.sp)
+                Text(text = "11/24", color = Color.White, fontSize = 20.sp, style = TextStyle(shadow = shadow))
             }
 
 

@@ -23,9 +23,10 @@ fun HomeScreen(onBack: () -> Unit) {
 
         }) {
             //Good practice to make sure whe using bottom bar, that our content won't affect scroll
-            Column(modifier = Modifier.padding(it)){
-                Text(text = "Home")
+            Column(modifier = Modifier.padding(it)) {
+
                 WMCardGroup()
+                Text(text = "Transações")
             }
         }
 

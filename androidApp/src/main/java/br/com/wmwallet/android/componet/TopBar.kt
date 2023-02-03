@@ -28,7 +28,7 @@ fun CenterTopBar(title: String, onProfileNavigation: () -> Unit = {}) {
         actions = {
             IconButton(onClick = onProfileNavigation) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    painter = painterResource(id = R.drawable.eu),
                     contentDescription = "profile picture"
                 )
             }
@@ -39,11 +39,11 @@ fun CenterTopBar(title: String, onProfileNavigation: () -> Unit = {}) {
 
 @Composable
 fun TopBar(title: String = "", onBack: () -> Unit, onProfileNavigation: () -> Unit) {
-    TopAppBar( backgroundColor = Color.Transparent,
+    TopAppBar(
+        backgroundColor = Color.Transparent,
 
 
-
-    title = { Text(text = title, color = Color.White) },
+        title = { Text(text = title, color = Color.White) },
 
 
         navigationIcon = {
@@ -57,18 +57,15 @@ fun TopBar(title: String = "", onBack: () -> Unit, onProfileNavigation: () -> Un
         },
 
 
-
-                actions = {
+        actions = {
             IconButton(onClick = onProfileNavigation) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_launcher_background),
                     contentDescription = "profile picture",
 
-                )
+                    )
             }
         },
-
-
 
 
         )
