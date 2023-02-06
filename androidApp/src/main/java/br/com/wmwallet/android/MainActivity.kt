@@ -27,6 +27,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import br.com.wmwallet.Greeting
 import br.com.wmwallet.android.componet.AlertaGeral
 import br.com.wmwallet.android.login.LoginScreen
@@ -37,6 +38,7 @@ import br.com.wmwallet.android.Navigator
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         setContent {
             Navigator()
 

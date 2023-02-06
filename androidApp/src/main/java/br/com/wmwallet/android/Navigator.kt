@@ -17,7 +17,7 @@ enum class Route{
 fun Navigator(
     modifier: Modifier = Modifier,
     navHostController: NavHostController = rememberNavController(),
-    initial: Route = Route.LOGIN
+    initial: Route = Route.HOME
     ){
 
 NavHost(navController = navHostController, startDestination = initial.name){
