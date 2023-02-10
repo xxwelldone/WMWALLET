@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,10 +24,12 @@ import br.com.wmwallet.android.componet.CenterTopBar
 import br.com.wmwallet.android.componet.ListTransactions
 import br.com.wmwallet.android.componet.TopBar
 import br.com.wmwallet.android.componet.WMCardGroup
+import br.com.wmwallet.api.Api
 import br.com.wmwallet.model.TransactionType
 import br.com.wmwallet.network.loadTransaction
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import kotlinx.coroutines.launch
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
@@ -37,6 +39,8 @@ fun HomeScreen(onBack: () -> Unit) {
             CenterTopBar(onProfileNavigation = {}, title = "WMWALLET")
 
         }) {
+
+
             //Good practice to make sure whe using bottom bar, that our content won't affect scroll
             Column(modifier = Modifier.padding(it)) {
 
@@ -48,9 +52,24 @@ fun HomeScreen(onBack: () -> Unit) {
                     modifier = Modifier.padding(10.dp),
                     textAlign = TextAlign.Center
                 )
+                val scope = rememberCoroutineScope()
+                val text = remember { mutableStateOf("Loading") }
+                LaunchedEffect(true) {
+                    scope.launch {
+                        text.value = try {
+                            Api.instance.getAll().results.map { it.name }.toString()
+                        } catch (e: Exception) {
+
+
+                            e.localizedMessage ?: "Erro"
+                        }
+                    }
+                }
+
                 val items = loadTransaction()
                 LazyColumn {
                     items(items.size) {
+                        Text(text = text.value)
                         val painter = rememberAsyncImagePainter(
                             model =
                             ImageRequest.Builder(LocalContext.current)
@@ -78,7 +97,7 @@ fun HomeScreen(onBack: () -> Unit) {
                             title = items[it].title,
 
                             transactionType = items[it].transactionType,
-                            value =  items[it].value
+                            value = items[it].value
 
                         )
                     }
