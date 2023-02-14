@@ -40,6 +40,7 @@ fun HomeScreen(onBack: () -> Unit) {
     val scope = rememberCoroutineScope()
     val text = remember { mutableStateOf("Loading") }
     val profile = remember { mutableStateOf<Profile?>(null) }
+
     LaunchedEffect(true) {
         scope.launch {
             try {
