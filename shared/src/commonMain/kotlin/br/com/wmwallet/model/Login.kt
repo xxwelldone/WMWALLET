@@ -1,5 +1,9 @@
 package br.com.wmwallet.model
 
-class Login(private val email: String, private val senha: String) {
-    fun validador() = (email == "user@kmm.com" && senha == "123")
+import kotlinx.serialization.Serializable
+
+
+
+class Login(private val email: String, private val password: String) {
+    fun validador() = (email == "user@kmm.com" && password == "123")
 }

@@ -25,6 +25,8 @@ import br.com.wmwallet.android.componet.ListTransactions
 import br.com.wmwallet.android.componet.TopBar
 import br.com.wmwallet.android.componet.WMCardGroup
 import br.com.wmwallet.api.Api
+import br.com.wmwallet.model.Login
+import br.com.wmwallet.model.Profile
 import br.com.wmwallet.model.TransactionType
 import br.com.wmwallet.network.loadTransaction
 import coil.compose.rememberAsyncImagePainter
@@ -34,13 +36,28 @@ import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
 fun HomeScreen(onBack: () -> Unit) {
+
+    val scope = rememberCoroutineScope()
+    val text = remember { mutableStateOf("Loading") }
+    val profile = remember { mutableStateOf<Profile?>(null) }
+    LaunchedEffect(true) {
+        scope.launch {
+            try {
+                Api.token =
+                    Api.instance.login(Login("user@kmm.com", "123")).token
+                profile.value = Api.instance.profile()
+
+            } catch (e: Exception) {
+                e.message ?: "Erro"
+            }
+        }
+    }
+
     MyApplicationTheme() {
         Scaffold(topBar = {
             CenterTopBar(onProfileNavigation = {}, title = "WMWALLET")
 
         }) {
-
-
             //Good practice to make sure whe using bottom bar, that our content won't affect scroll
             Column(modifier = Modifier.padding(it)) {
 
@@ -52,24 +69,13 @@ fun HomeScreen(onBack: () -> Unit) {
                     modifier = Modifier.padding(10.dp),
                     textAlign = TextAlign.Center
                 )
-                val scope = rememberCoroutineScope()
-                val text = remember { mutableStateOf("Loading") }
-                LaunchedEffect(true) {
-                    scope.launch {
-                        text.value = try {
-                            Api.instance.getAll().results.map { it.name }.toString()
-                        } catch (e: Exception) {
 
-
-                            e.localizedMessage ?: "Erro"
-                        }
-                    }
-                }
 
                 val items = loadTransaction()
+                Text(text = text.value)
                 LazyColumn {
                     items(items.size) {
-                        Text(text = text.value)
+
                         val painter = rememberAsyncImagePainter(
                             model =
                             ImageRequest.Builder(LocalContext.current)

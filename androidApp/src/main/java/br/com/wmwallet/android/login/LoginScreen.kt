@@ -75,7 +75,7 @@ fun LoginScreen(onHomeNavigate: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(80.dp))
                 Button(onClick = {
-                    val loginUser = Login(email = login.value.text, senha = senha.value.text)
+                    val loginUser = Login(email = login.value.text, password = senha.value.text)
 
                     if (loginUser.validador()) {
                         onHomeNavigate.invoke()
