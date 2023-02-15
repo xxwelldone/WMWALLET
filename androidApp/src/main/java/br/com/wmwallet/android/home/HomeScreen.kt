@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.wmwallet.android.MyApplicationTheme
 import br.com.wmwallet.android.componet.CenterTopBar
 import br.com.wmwallet.android.componet.ListTransactions
@@ -36,23 +37,29 @@ import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
 fun HomeScreen(onBack: () -> Unit) {
+ //viewmodel
+    val viewModel = viewModel<HomeViewModel>()
+    val transactions by viewModel.transaction.collectAsState()
+    val profileView by viewModel.profile.collectAsState()
+
+
 
     val scope = rememberCoroutineScope()
     val text = remember { mutableStateOf("Loading") }
     val profile = remember { mutableStateOf<Profile?>(null) }
 
-    LaunchedEffect(true) {
-        scope.launch {
-            try {
-                Api.token =
-                    Api.instance.login(Login("user@kmm.com", "123")).token
-                profile.value = Api.instance.profile()
-
-            } catch (e: Exception) {
-                e.message ?: "Erro"
-            }
-        }
-    }
+//    LaunchedEffect(true) {
+//        scope.launch {
+//            try {
+//                Api.token =
+//                    Api.instance.login(Login("user@kmm.com", "123")).token
+//                profile.value = Api.instance.profile()
+//
+//            } catch (e: Exception) {
+//                e.message ?: "Erro"
+//            }
+//        }
+//    }
 
     MyApplicationTheme() {
         Scaffold(topBar = {

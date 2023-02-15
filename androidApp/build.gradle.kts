@@ -48,6 +48,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-util:1.3.3")
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
 
 
 }

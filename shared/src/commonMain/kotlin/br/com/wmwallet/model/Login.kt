@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 
 class Login(private val email: String, private val password: String) {
-    fun validador() = (email == "user@kmm.com" && password == "123")
+    fun validador() = (email == "denisfelippe@gmail.com" && password == "1234")
 }
